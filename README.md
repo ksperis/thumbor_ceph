@@ -1,11 +1,13 @@
 thumbor_ceph
 ============
 
-Thumbor Ceph RADOS extensions
+Thumbor Ceph RADOS Storage extensions
 
-For thumbor installation : https://github.com/thumbor/thumbor
+Ceph Project : http://ceph.com/
+Thumbor Project : https://github.com/thumbor/thumbor
 
-Install Extention :
+
+Install thumbor_ceph Extention :
 -------------------
 
 	apt-get install git python-ceph
@@ -17,7 +19,14 @@ Install Extention :
 Configuration :
 ---------------
 
-Section File Storage in /etc/thumbor
+Populate /etc/ceph/ with ceph.conf and admin keyring
+
+Create ceph pool for thumbor :
+
+	ceph osd pool create thumbor 128 128
+
+
+Section File Storage in /etc/thumbor.conf
 
 	################################# File Storage #################################
 	STORAGE = 'thumbor_ceph.storages.ceph_storage'
