@@ -4,6 +4,7 @@ thumbor_ceph
 Thumbor Ceph RADOS Storage extensions
 
 Ceph Project : http://ceph.com/
+
 Thumbor Project : https://github.com/thumbor/thumbor
 
 
