@@ -1,18 +1,21 @@
 from thumbor.result_storages import BaseStorage
 from thumbor.utils import logger
-import rados, sys
+import rados
 import hashlib
 
 
 class Storage(BaseStorage):
-  cluster = rados.Rados(conffile="/etc/ceph/ceph.conf")
-  cluster.connect()
-  logger.debug('INIT RADOS Result Storage (ID:' + cluster.get_fsid() + ')')
 
-  def __init__(self,context):
-    BaseStorage.__init__(self, context)
+  def __init__(self, context, conffile=None):
+    super(BaseStorage, self).__init__(context)
+    if conffile is None:
+      conffile = '/etc/ceph/ceph.conf'
+
     if not self.context.config.CEPH_RESULT_STORAGE_POOL:
       raise RuntimeError("CEPH_RESULT_STORAGE_POOL undefined")
+    self.cluster = rados.Rados(conffile=conffile)
+    self.cluster.connect()
+    logger.debug('INIT RADOS Result Storage (ID:' + self.cluster.get_fsid() + ')')
     self.storage = self.cluster.open_ioctx(self.context.config.CEPH_RESULT_STORAGE_POOL)
 
   def put(self, bytes):
