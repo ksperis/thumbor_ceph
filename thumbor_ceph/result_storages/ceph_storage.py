@@ -7,9 +7,10 @@ import hashlib
 class Storage(BaseStorage):
 
   def __init__(self, context, conffile=None):
-    super(BaseStorage, self).__init__(context)
     if conffile is None:
       conffile = '/etc/ceph/ceph.conf'
+
+    super(Storage, self).__init__(context)
 
     if not self.context.config.CEPH_RESULT_STORAGE_POOL:
       raise RuntimeError("CEPH_RESULT_STORAGE_POOL undefined")

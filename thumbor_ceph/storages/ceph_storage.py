@@ -16,7 +16,7 @@ class Storage(BaseStorage):
     if conffile is None:
       conffile = '/etc/ceph/ceph.conf'
 
-    super(BaseStorage, self).__init__(context)
+    super(Storage, self).__init__(context)
 
     if not self.context.config.CEPH_STORAGE_POOL:
       raise RuntimeError("CEPH_STORAGE_POOL undefined")
